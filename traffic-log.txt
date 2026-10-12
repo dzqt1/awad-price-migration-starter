@@ -1,0 +1,20 @@
+
+=== traffic start 2026-10-11T12:48:25.322Z · targets http://localhost:3001 http://localhost:3002 · new clients 0
+   5.1s ok=5496 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.1s ok=10992 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  15.1s ok=16405 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  20.1s ok=21663 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  25.1s ok=27143 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  30.1s ok=32514 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  35.1s ok=37996 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  40.1s ok=43825 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  45.1s ok=49346 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  50.1s ok=54848 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  55.1s ok=60309 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  60.1s ok=65293 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  65.1s ok=70714 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  70.1s ok=76251 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  75.1s ok=81775 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  80.1s ok=87216 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  82.4s FINAL ok=89728 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+RESULT: zero failed requests
