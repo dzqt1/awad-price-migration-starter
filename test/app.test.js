@@ -23,13 +23,26 @@ const call = async (method, path, body) => {
 };
 
 test('GET /menu/:id returns price in thousands of dong', async () => {
-  assert.deepEqual(await call('GET', '/menu/1'), { status: 200, body: { id: 1, name: 'Phở bò', price: 45.5 } });
+  assert.deepEqual(await call('GET', '/menu/1'), { status: 200, body: { id: 1, name: 'Phở bò', price: 45.5, priceVnd: 45500 } });
 });
 
 test('PATCH /menu/:id changes the price', async () => {
   const r = await call('PATCH', '/menu/2', { price: 6 });
   assert.equal(r.status, 200);
   assert.equal(r.body.price, 6);
+  assert.equal(r.body.priceVnd, 6000);
+});
+
+test('POST and PATCH accept priceVnd and keep both columns synchronized', async () => {
+  const created = await call('POST', '/menu', { name: 'Bánh mì', priceVnd: 12500 });
+  assert.equal(created.status, 201);
+  assert.equal(created.body.price, 12.5);
+  assert.equal(created.body.priceVnd, 12500);
+
+  const updated = await call('PATCH', `/menu/${created.body.id}`, { priceVnd: 13750 });
+  assert.equal(updated.status, 200);
+  assert.equal(updated.body.price, 13.75);
+  assert.equal(updated.body.priceVnd, 13750);
 });
 
 test('POST /orders totals at the current price', async () => {

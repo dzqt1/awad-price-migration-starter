@@ -1,0 +1,17 @@
+[Step 2]
+columns                id, name, price, price_vnd
+rows                   22619
+price_vnd_null         0
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT
+
+[Step 3]
+columns                id, name, price, price_vnd
+rows                   22619
+price_vnd_null         0
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT
+
+[Step 4]
