@@ -8,10 +8,26 @@ CONSISTENT
 
 [Step 3]
 columns                id, name, price, price_vnd
-rows                   22619
+rows                   22122
+price_vnd_null         18547
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT, but 18547 rows have no price_vnd yet — nothing may read price_vnd until they do
+
+[Step 4]
+// Khi dừng backfill giữa chừng
+columns                id, name, price, price_vnd
+rows                   24370
+price_vnd_null         1112
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT
+
+// Sau khi hoàn thành backfill
+rows                   24370
 price_vnd_null         0
 price_vnd_not_integer  0
 disagree               0
 CONSISTENT
 
-[Step 4]
+[Step 5]

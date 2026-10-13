@@ -6,11 +6,12 @@
   "description": "IA#2 starter — smart-restaurant menu service for a zero-downtime migration",
   "engines": { "node": ">=22.5" },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node --env-file .env src/server.js",
     "migrate": "node scripts/migrate.js up",
     "migrate:down": "node scripts/migrate.js down",
     "migrate:status": "node scripts/migrate.js status",
     "seed": "node scripts/seed.js",
+    "backfill": "node scripts/backfill.js",
     "traffic": "node scripts/traffic.js",
     "check": "node scripts/check.js",
     "test": "node --test --test-reporter=spec"
