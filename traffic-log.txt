@@ -18,3 +18,30 @@
   80.1s ok=87216 error=0 contract=0 stale=0 unavailable=0 rerouted=0
   82.4s FINAL ok=89728 error=0 contract=0 stale=0 unavailable=0 rerouted=0
 RESULT: zero failed requests
+
+=== traffic start 2026-10-13T05:10:10.169Z · targets http://localhost:3001 http://localhost:3002 · new clients 0
+   5.1s ok=5366 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.1s ok=10828 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  15.1s ok=16144 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  20.1s ok=21389 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  25.1s ok=26736 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  30.1s ok=30466 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  35.1s ok=35515 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  40.1s ok=40899 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  45.1s ok=46518 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  50.1s ok=52025 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  55.1s ok=57469 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  60.1s ok=63009 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  65.1s ok=68372 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  70.1s ok=73999 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  75.1s ok=79468 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  80.1s ok=84895 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  85.1s ok=90477 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  90.1s ok=96118 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  95.1s ok=101791 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+ 100.1s ok=107545 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+ 105.1s ok=113036 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+ 110.1s ok=118576 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+ 115.1s ok=121377 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+ 117.8s FINAL ok=124244 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+RESULT: zero failed requests
