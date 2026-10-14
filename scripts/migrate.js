@@ -14,10 +14,12 @@ const files = readdirSync(DIR).filter((f) => f.endsWith('.up.sql')).sort();
 const versions = files.map((f) => f.replace('.up.sql', ''));
 const applied = new Set(db.prepare('SELECT version FROM schema_migrations').all().map((r) => r.version));
 
-function run(sql, after) {
+function run(sql, after, { rebuild = false } = {}) {
+  if (rebuild) db.exec('PRAGMA foreign_keys = OFF');
   db.exec('BEGIN IMMEDIATE');
   try { db.exec(sql); after(); db.exec('COMMIT'); }
   catch (e) { db.exec('ROLLBACK'); throw e; }
+  finally { if (rebuild) db.exec('PRAGMA foreign_keys = ON'); }
 }
 
 const cmd = process.argv[2] ?? 'status';
@@ -26,7 +28,7 @@ if (cmd === 'up') {
   if (!pending.length) console.log('nothing to apply');
   for (const v of pending) {
     run(readFileSync(join(DIR, `${v}.up.sql`), 'utf8'), () =>
-      db.prepare("INSERT INTO schema_migrations VALUES (?, datetime('now'))").run(v));
+      db.prepare("INSERT INTO schema_migrations VALUES (?, datetime('now'))").run(v), { rebuild: v === '003_contract_price_vnd' });
     console.log(`applied  ${v}`);
   }
 } else if (cmd === 'down') {
@@ -34,7 +36,7 @@ if (cmd === 'up') {
   if (!last) { console.log('nothing to revert'); process.exit(0); }
   const file = join(DIR, `${last.version}.down.sql`);
   if (!existsSync(file)) { console.error(`no ${last.version}.down.sql — this step has no way back`); process.exit(1); }
-  run(readFileSync(file, 'utf8'), () => db.prepare('DELETE FROM schema_migrations WHERE version = ?').run(last.version));
+  run(readFileSync(file, 'utf8'), () => db.prepare('DELETE FROM schema_migrations WHERE version = ?').run(last.version), { rebuild: last.version === '003_contract_price_vnd' });
   console.log(`reverted ${last.version}`);
 } else {
   console.log(`db ${DB_PATH}`);

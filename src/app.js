@@ -1,7 +1,6 @@
 import { createServer } from 'node:http';
 
-// v3 contract code: price_vnd is authoritative while both columns remain
-// synchronized for rollback to v2.
+// v4 contract code: price_vnd is the only persisted price column.
 
 const json = (res, status, body) => {
   res.writeHead(status, { 'content-type': 'application/json' });
@@ -21,29 +20,24 @@ const isPriceVnd = (p) => Number.isInteger(p) && p > 0 && p <= 100000000;
 
 export function createApp(db) {
   const q = {
-    list: db.prepare('SELECT id, name, price, price_vnd FROM menu_items ORDER BY id LIMIT ? OFFSET ?'),
-    get: db.prepare('SELECT id, name, price, price_vnd FROM menu_items WHERE id = ?'),
-    insert: db.prepare('INSERT INTO menu_items (name, price, price_vnd) VALUES (?, ?, ?)'),
-    setPrice: db.prepare('UPDATE menu_items SET price = ?, price_vnd = ? WHERE id = ?'),
+    list: db.prepare('SELECT id, name, price_vnd FROM menu_items ORDER BY id LIMIT ? OFFSET ?'),
+    get: db.prepare('SELECT id, name, price_vnd FROM menu_items WHERE id = ?'),
+    insert: db.prepare('INSERT INTO menu_items (name, price_vnd) VALUES (?, ?)'),
+    setPrice: db.prepare('UPDATE menu_items SET price_vnd = ? WHERE id = ?'),
     insertOrder: db.prepare("INSERT INTO orders (created_at) VALUES (datetime('now'))"),
     insertLine: db.prepare('INSERT INTO order_items (order_id, menu_item_id, qty, unit_price) VALUES (?, ?, ?, ?)'),
   };
 
   const resolvePrice = (row) => {
     const priceVnd = row.price_vnd;
-    const expectedPriceVnd = isPrice(row.price) ? Math.round(row.price * 1000) : null;
-    if (!isPriceVnd(priceVnd) || (expectedPriceVnd !== null && priceVnd !== expectedPriceVnd))
-      console.error(`ALERT menu_items price mismatch id=${row.id}: price=${row.price} price_vnd=${priceVnd}`);
     return { price: priceVnd / 1000.0, priceVnd };
   };
 
   const view = (row) => ({ id: row.id, name: row.name, ...resolvePrice(row) });
 
   const pricesFromBody = (body) => {
-    if (isPrice(body.price)) {
-      const priceVnd = Math.round(body.price * 1000);
-      if (body.priceVnd === undefined || body.priceVnd === priceVnd) return { price: body.price, priceVnd };
-    }
+    if (isPrice(body.price) && body.priceVnd === undefined)
+      return { priceVnd: Math.round(body.price * 1000) };
     if (isPriceVnd(body.priceVnd)) return { price: body.priceVnd / 1000.0, priceVnd: body.priceVnd };
     return null;
   };
@@ -72,7 +66,7 @@ export function createApp(db) {
         if (!body || typeof body.name !== 'string' || !body.name || !prices)
           return error(res, 400, 'invalid_body', 'name (string) and price or priceVnd are required');
         const row = transaction(() => {
-          const { lastInsertRowid } = q.insert.run(body.name, prices.price, prices.priceVnd);
+          const { lastInsertRowid } = q.insert.run(body.name, prices.priceVnd);
           return q.get.get(lastInsertRowid);
         });
         return json(res, 201, view(row));
@@ -90,7 +84,7 @@ export function createApp(db) {
         if (!prices)
           return error(res, 400, 'invalid_body', 'price or priceVnd is required');
         const updated = transaction(() => {
-          q.setPrice.run(prices.price, prices.priceVnd, id);
+          q.setPrice.run(prices.priceVnd, id);
           return q.get.get(id);
         });
         return json(res, 200, view(updated));

@@ -72,9 +72,8 @@ downtime.
   the other one
 - `unavailable` — a moment when no instance answered
 
-`NEW_CLIENTS=0.3 npm run traffic` makes 30% of the requests come from new
-clients, which send `priceVnd` and expect it back. Turn it on once every running
-version offers `priceVnd`.
+Traffic uses the final client contract and sends `priceVnd`, expecting it back
+alongside the legacy `price` response field.
 
 The traffic log shows whether a request failed; it does **not** show a row that
 is wrong but has not been read yet. Run `npm run check` after every step as well.

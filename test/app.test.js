@@ -10,7 +10,7 @@ before(async () => {
   const dir = new URL('../migrations/', import.meta.url);
   for (const f of readdirSync(dir).filter((f) => f.endsWith('.up.sql')).sort())
     db.exec(readFileSync(new URL(f, dir), 'utf8'));          // every migration, in order
-  db.exec("INSERT INTO menu_items (name, price) VALUES ('Phở bò', 45.5), ('Trà đá', 5)");
+  db.exec("INSERT INTO menu_items (name, price_vnd) VALUES ('Phở bò', 45500), ('Trà đá', 5000)");
   server = createApp(db).listen(0);
   await new Promise((r) => server.once('listening', r));
   base = `http://localhost:${server.address().port}`;
@@ -33,7 +33,7 @@ test('PATCH /menu/:id changes the price', async () => {
   assert.equal(r.body.priceVnd, 6000);
 });
 
-test('POST and PATCH accept priceVnd and keep both columns synchronized', async () => {
+test('POST and PATCH accept priceVnd and expose the legacy price field', async () => {
   const created = await call('POST', '/menu', { name: 'Bánh mì', priceVnd: 12500 });
   assert.equal(created.status, 201);
   assert.equal(created.body.price, 12.5);
