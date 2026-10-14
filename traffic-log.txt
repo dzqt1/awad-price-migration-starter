@@ -105,3 +105,57 @@ RESULT: zero failed requests
  175.1s ok=201601 error=0 contract=0 stale=0 unavailable=0 rerouted=292
  180.1s ok=206813 error=0 contract=0 stale=0 unavailable=0 rerouted=292
  185.1s ok=212068 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 190.1s ok=217448 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 195.1s ok=222728 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 200.1s ok=228093 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 205.1s ok=233458 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 210.1s ok=238828 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 215.1s ok=244102 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 220.1s ok=249260 error=0 contract=0 stale=0 unavailable=0 rerouted=292
+ 224.8s http://localhost:3001 down (ECONNRESET)
+ 225.1s ok=254652 error=0 contract=0 stale=0 unavailable=0 rerouted=294
+ 230.1s ok=263700 error=0 contract=0 stale=0 unavailable=0 rerouted=373
+ 231.0s http://localhost:3001 back
+ 235.1s ok=269337 error=0 contract=0 stale=0 unavailable=0 rerouted=382
+ 240.2s ok=274565 error=0 contract=0 stale=0 unavailable=0 rerouted=382
+ 245.2s ok=279658 error=0 contract=0 stale=0 unavailable=0 rerouted=382
+ 250.2s ok=285063 error=0 contract=0 stale=0 unavailable=0 rerouted=382
+ 253.4s http://localhost:3002 down (ECONNREFUSED)
+ 255.2s ok=291574 error=0 contract=0 stale=0 unavailable=0 rerouted=393
+ 259.6s http://localhost:3002 back
+ 260.2s ok=299752 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 265.2s ok=304941 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 270.2s ok=310112 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 275.2s ok=315153 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 280.2s ok=320388 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 285.2s ok=325535 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 290.2s ok=330596 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 295.2s ok=335785 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 300.2s ok=341075 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 305.2s ok=346497 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 310.2s ok=351695 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 315.2s ok=357057 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 320.2s ok=362327 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 325.2s ok=367569 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 330.2s ok=372967 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 335.2s ok=378385 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 340.2s ok=383592 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 345.2s ok=388667 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 350.2s ok=393789 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 355.2s ok=399001 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 360.2s ok=404100 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 365.2s ok=409408 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 370.2s ok=414484 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 375.2s ok=419784 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 380.2s ok=425148 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 385.2s ok=430320 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 390.2s ok=435551 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 395.2s ok=440738 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 400.2s ok=445846 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 405.2s ok=450900 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 410.2s ok=456042 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 415.2s ok=461303 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 420.2s ok=466499 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 425.2s ok=471750 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+ 427.4s FINAL ok=473986 error=0 contract=0 stale=0 unavailable=0 rerouted=433
+RESULT: zero failed requests

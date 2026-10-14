@@ -47,9 +47,22 @@ disagree               0
 CONSISTENT
 
 [STEP 6]
-
+columns                id, name, price_vnd
+rows                   32667
+price_vnd_null         0
+price_vnd_not_integer  0
+CONSISTENT
 
 [STEP 7]
-
+columns                id, name, price_vnd
+rows                   32956
+price_vnd_null         0
+price_vnd_not_integer  0
+CONSISTENT
 
 [STEP 8]
+columns                id, name, price_vnd
+rows                   34799
+price_vnd_null         0
+price_vnd_not_integer  0
+CONSISTENT
