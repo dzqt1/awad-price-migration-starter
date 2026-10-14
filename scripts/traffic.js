@@ -4,6 +4,8 @@
 //
 //   TARGETS=http://localhost:3001,http://localhost:3002  (default)
 //   DURATION=0        seconds, 0 = until Ctrl+C
+//   NEW_CLIENTS=0     share of requests from new clients (0..1) — they send and
+//                     expect `priceVnd`; turn it on once your API offers it
 //   IDS=2000          menu ids 1..IDS are used; 1..50 are never re-priced
 //   LOG=traffic-log.txt
 //
@@ -15,6 +17,7 @@ import { appendFileSync } from 'node:fs';
 
 const TARGETS = (process.env.TARGETS ?? 'http://localhost:3001,http://localhost:3002').split(',');
 const DURATION = Number(process.env.DURATION ?? 0);
+const NEW_CLIENTS = Number(process.env.NEW_CLIENTS ?? 0);
 const IDS = Number(process.env.IDS ?? 2000);
 const LOG = process.env.LOG ?? 'traffic-log.txt';
 const WORKERS = 8;
@@ -64,6 +67,8 @@ const expected = new Map(); // id -> last acknowledged price, in thousands
 const inflight = new Set();
 const created = [];         // ids of items this run created, read back later
 const pick = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
+const isNew = () => Math.random() < NEW_CLIENTS;
+
 function checkItem(r, client, where) {
   const d = r.data;
   if (typeof d !== 'object' || typeof d.price !== 'number' || !(d.price > 0))
@@ -75,7 +80,7 @@ function checkItem(r, client, where) {
 
 async function once() {
   const roll = Math.random();
-  const client = 'new';
+  const client = isNew() ? 'new' : 'old';
 
   if (roll < 0.6) {                                     // read one item
     const id = created.length && Math.random() < 0.15 ? created[pick(0, created.length - 1)] : pick(1, IDS);
@@ -153,7 +158,7 @@ for (let id = 1; id <= FIXED; id++) {
   expected.set(id, r.data.price);
 }
 
-log(`\n=== traffic start ${new Date().toISOString()} · targets ${TARGETS.join(' ')}`);
+log(`\n=== traffic start ${new Date().toISOString()} · targets ${TARGETS.join(' ')} · new clients ${NEW_CLIENTS}`);
 let stop = false;
 process.on('SIGINT', () => { stop = true; });
 if (DURATION) setTimeout(() => { stop = true; }, DURATION * 1000);

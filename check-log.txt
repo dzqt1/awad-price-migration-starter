@@ -1,0 +1,55 @@
+[STEP 1]
+columns                id, name, price, price_vnd
+rows                   20607
+price_vnd_null         19487
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT, but 19487 rows have no price_vnd yet — nothing may read price_vnd until they do
+
+[STEP 2]
+columns                id, name, price, price_vnd
+rows                   22443
+price_vnd_null         18519
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT, but 18519 rows have no price_vnd yet — nothing may read price_vnd until they do
+
+[STEP 3]
+\\ Khi dừng backfill giữa chừng
+columns                id, name, price, price_vnd
+rows                   23033
+price_vnd_null         7019
+price_vnd_not_integer  0
+disagree               0
+
+\\ Khi hoàn thành backfill
+columns                id, name, price, price_vnd
+rows                   23276
+price_vnd_null         0
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT
+
+[STEP 4]
+columns                id, name, price, price_vnd
+rows                   25802
+price_vnd_null         0
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT
+
+[STEP 5]
+columns                id, name, price, price_vnd
+rows                   27443
+price_vnd_null         0
+price_vnd_not_integer  0
+disagree               0
+CONSISTENT
+
+[STEP 6]
+
+
+[STEP 7]
+
+
+[STEP 8]

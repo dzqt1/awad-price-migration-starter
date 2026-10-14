@@ -27,7 +27,6 @@ Phạm vi chỉ gồm `menu_items`. Cột `order_items.unit_price` tiếp tục 
 ## Giả định hạ tầng
 
 - Mọi instance truy cập cùng một file SQLite trên cùng host hoặc volume có file locking đúng (không phải NFS).
-- Mọi connection đặt `PRAGMA journal_mode=WAL` và `PRAGMA busy_timeout` (đề xuất 5000 ms).
 - Không còn writer nào ngoài danh sách đã kiểm kê ở pre-flight (web app, seed script, cron, import, admin tool).
 - "Zero-downtime" chỉ được khẳng định sau khi đo thời gian giữ write lock của Step 7 trên bản sao production.
 

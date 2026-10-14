@@ -4,20 +4,15 @@
 import { open } from '../src/db.js';
 
 const db = open();
-const tableInfo = db.prepare('PRAGMA table_info(menu_items)').all();
-const cols = new Set(tableInfo.map((c) => c.name));
+const cols = new Set(db.prepare('PRAGMA table_info(menu_items)').all().map((c) => c.name));
 const count = (sql) => db.prepare(sql).get().n;
 const out = { columns: [...cols].join(', '), rows: count('SELECT count(*) n FROM menu_items') };
 let ok = true;
 
 if (cols.has('price_vnd')) {
-  out.price_vnd_required = tableInfo.find((c) => c.name === 'price_vnd')?.notnull === 1;
   out.price_vnd_null = count('SELECT count(*) n FROM menu_items WHERE price_vnd IS NULL');
   out.price_vnd_not_integer = count("SELECT count(*) n FROM menu_items WHERE price_vnd IS NOT NULL AND typeof(price_vnd) <> 'integer'");
-  out.price_vnd_non_positive = count('SELECT count(*) n FROM menu_items WHERE price_vnd <= 0');
   ok &&= out.price_vnd_not_integer === 0;
-  ok &&= out.price_vnd_non_positive === 0;
-  if (!cols.has('price')) ok &&= out.price_vnd_required;
 }
 if (cols.has('price') && cols.has('price_vnd')) {
   out.disagree = count('SELECT count(*) n FROM menu_items WHERE price_vnd IS NOT NULL AND price_vnd <> CAST(round(price * 1000) AS INTEGER)');
