@@ -75,6 +75,8 @@ Quy tắc ghi của `v2` và `v3`:
 
 **Point of no return:** Bước 7, vì ở bước này bảng price sẽ bị drop và dữ liệu gốc không còn tồn tại. Việc undo ở bước này chỉ là tạo lại bảng price từ dữ liệu của bảng price_vnd, không phải khôi phục lại dữ liệu ban đầu. 
 
+**The way back:** Đã thực hiện rollback ở bước 5, từ v3 về v2. Việc rollback này có thể thực hiện được vì khi lúc này bảng vẫn còn cột price và v2 vẫn có thể đọc dữ liệu.
+
 ## Điều kiện chuyển bước
 
 | Chuyển sang | Điều kiện |
