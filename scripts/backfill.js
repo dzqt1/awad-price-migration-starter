@@ -1,7 +1,7 @@
 // Backfill price_vnd outside the DDL migration, one small write transaction at a time.
 import { open, DB_PATH } from '../src/db.js';
 
-const BATCH_SIZE = 50;
+const BATCH_SIZE = 500;
 const MAX_RETRIES = 10;
 const PAUSE_MS = 25;
 const db = open();

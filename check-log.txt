@@ -31,3 +31,37 @@ disagree               0
 CONSISTENT
 
 [Step 5]
+columns                id, name, price_vnd
+rows                   25150
+price_vnd_null         0
+price_vnd_not_integer  0
+price_vnd_non_positive 0
+CONSISTENT
+NOTE: local DB has already dropped price while migration history stops at 002; this is not a valid two-column rolling-deploy checkpoint for steps 5-7.
+
+[Step 6 - isolated expand-schema rehearsal]
+DB_PATH=%TEMP%\awad-price-steps-5-7.db
+two v3 instances: http://localhost:3101,http://localhost:3102
+NEW_CLIENTS=0: ok=10220 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+NEW_CLIENTS=0.01: ok=10468 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+RESULT: zero failed requests at both traffic stages
+=== traffic start 2026-10-14T06:10:24.687Z · targets http://localhost:3101 http://localhost:3102 · new clients 0
+   5.2s ok=4971 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.2s ok=10212 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.2s FINAL ok=10220 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+RESULT: zero failed requests
+
+=== traffic start 2026-10-14T06:10:55.258Z · targets http://localhost:3101 http://localhost:3102 · new clients 0.01
+   5.1s ok=5218 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.1s ok=10460 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.1s FINAL ok=10468 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+RESULT: zero failed requests
+
+[Step 7]
+columns                id, name, price, price_vnd
+rows                   2411
+price_vnd_null         0
+price_vnd_not_integer  0
+price_vnd_non_positive 0
+disagree               0
+CONSISTENT

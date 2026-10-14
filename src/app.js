@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 
-// v2 compatibility code: keep the old price field while dual-reading and
-// dual-writing the new VND column during the rolling deploy.
+// v3 contract code: price_vnd is authoritative while both columns remain
+// synchronized for rollback to v2.
 
 const json = (res, status, body) => {
   res.writeHead(status, { 'content-type': 'application/json' });
@@ -30,16 +30,11 @@ export function createApp(db) {
   };
 
   const resolvePrice = (row) => {
-    const priceVnd = isPriceVnd(row.price_vnd) ? row.price_vnd : null;
-    const priceVndFromLegacy = isPrice(row.price) ? Math.round(row.price * 1000) : null;
-    if (priceVnd !== null && (priceVndFromLegacy === null || priceVnd === priceVndFromLegacy))
-      return { price: priceVnd / 1000.0, priceVnd };
-    if (row.price_vnd !== null && row.price_vnd !== undefined &&
-      (priceVnd === null || (priceVndFromLegacy !== null && priceVnd !== priceVndFromLegacy)))
-      console.error(`menu_items price mismatch id=${row.id}: price=${row.price} price_vnd=${priceVnd}`);
-    if (priceVndFromLegacy !== null)
-      return { price: row.price, priceVnd: priceVndFromLegacy };
-    return { price: row.price, priceVnd };
+    const priceVnd = row.price_vnd;
+    const expectedPriceVnd = isPrice(row.price) ? Math.round(row.price * 1000) : null;
+    if (!isPriceVnd(priceVnd) || (expectedPriceVnd !== null && priceVnd !== expectedPriceVnd))
+      console.error(`ALERT menu_items price mismatch id=${row.id}: price=${row.price} price_vnd=${priceVnd}`);
+    return { price: priceVnd / 1000.0, priceVnd };
   };
 
   const view = (row) => ({ id: row.id, name: row.name, ...resolvePrice(row) });

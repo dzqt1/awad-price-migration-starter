@@ -89,3 +89,12 @@ RESULT: zero failed requests
   95.1s ok=110958 error=0 contract=0 stale=0 unavailable=0 rerouted=228
   95.1s FINAL ok=110959 error=0 contract=0 stale=0 unavailable=0 rerouted=228
 RESULT: zero failed requests
+=== traffic start 2026-10-14T07:50:44.175Z · targets http://localhost:3001 http://localhost:3002 · new clients 0
+   5.1s ok=5460 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  10.1s ok=10962 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  15.1s ok=16108 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  20.1s ok=21543 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  25.1s ok=26708 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  30.1s ok=31958 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+  31.5s FINAL ok=33475 error=0 contract=0 stale=0 unavailable=0 rerouted=0
+RESULT: zero failed requests

@@ -12,7 +12,9 @@ let ok = true;
 if (cols.has('price_vnd')) {
   out.price_vnd_null = count('SELECT count(*) n FROM menu_items WHERE price_vnd IS NULL');
   out.price_vnd_not_integer = count("SELECT count(*) n FROM menu_items WHERE price_vnd IS NOT NULL AND typeof(price_vnd) <> 'integer'");
+  out.price_vnd_non_positive = count('SELECT count(*) n FROM menu_items WHERE price_vnd <= 0');
   ok &&= out.price_vnd_not_integer === 0;
+  ok &&= out.price_vnd_non_positive === 0;
 }
 if (cols.has('price') && cols.has('price_vnd')) {
   out.disagree = count('SELECT count(*) n FROM menu_items WHERE price_vnd IS NOT NULL AND price_vnd <> CAST(round(price * 1000) AS INTEGER)');
